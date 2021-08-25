@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
-      <width>256</width>
-      <height>192</height>
+      <y>50</y>
+      <width>761</width>
+      <height>361</height>
      </rect>
     </property>
     <column>
@@ -89,8 +89,38 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionOpen_Sound"/>
+    <addaction name="actionOpen_Drums"/>
+    <addaction name="actionOpen_Music"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionOpen_Sound">
+   <property name="text">
+    <string>Open Sound</string>
+   </property>
+  </action>
+  <action name="actionOpen_Drums">
+   <property name="text">
+    <string>Open Drums</string>
+   </property>
+  </action>
+  <action name="actionOpen_Music">
+   <property name="text">
+    <string>Open Music</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
