@@ -16,19 +16,18 @@ struct TbMusicEntry
     uint32_t    Unknown5; // always 0?
 };
 
-class CMusic : public CBank
+
+class CMusic : public CBank<TbMusicEntry>
 {
 public:
     CMusic();
-    Bank<TbMusicEntry> m_Bank;
-    bool    Load(const QString& filename);
-    void    Create(const QString& filename);
-    void    Export(uint32_t index);
-    void    Play(uint32_t index);
-    void    FillTable(QTableWidget* table);
-    int32_t GetEntries() const;
+    void    Create(const QString& filename) override;
+    void    Export(uint32_t index) override;
+    void    Play(uint32_t index) override;
+    void    FillTable(QTableWidget* table) override;
+    int32_t GetEntries() const override;
 protected:
-    void    Clear();
+    void    Clear() override;
 };
 
 #endif // MUSIC_H

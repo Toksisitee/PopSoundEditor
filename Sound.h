@@ -17,19 +17,17 @@ struct TbSoundEntry
     uint32_t    LoopEnd;
 };
 
-class CSound : public CBank
+class CSound : public CBank<TbSoundEntry>
 {
 public:
     CSound();
-    Bank<TbSoundEntry> m_Bank;
-    bool    Load(const QString& filename);
-    void    Create(const QString& filename);
-    void    Export(uint32_t index);
-    void    Play(uint32_t index);
-    void    FillTable(QTableWidget* table);
-    int32_t GetEntries() const;
+    void    Create(const QString& filename) override;
+    void    Export(uint32_t index) override;
+    void    Play(uint32_t index) override;
+    void    FillTable(QTableWidget* table) override;
+    int32_t GetEntries() const override;
 protected:
-    void    Clear();
+    void    Clear() override;
 };
 
 
