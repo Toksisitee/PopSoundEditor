@@ -93,10 +93,27 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionOpen_Sound"/>
-    <addaction name="actionOpen_Drums"/>
-    <addaction name="actionOpen_Music"/>
+    <widget class="QMenu" name="menuSound">
+     <property name="title">
+      <string>Sound</string>
+     </property>
+     <addaction name="actionOpen"/>
+    </widget>
+    <widget class="QMenu" name="menuDrums">
+     <property name="title">
+      <string>Drums</string>
+     </property>
+     <addaction name="actionOpen_2"/>
+    </widget>
+    <widget class="QMenu" name="menuMusic">
+     <property name="title">
+      <string>Music</string>
+     </property>
+     <addaction name="actionOpen_3"/>
+    </widget>
+    <addaction name="menuSound"/>
+    <addaction name="menuDrums"/>
+    <addaction name="menuMusic"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -106,19 +123,14 @@
     <string>Open</string>
    </property>
   </action>
-  <action name="actionOpen_Sound">
+  <action name="actionOpen_2">
    <property name="text">
-    <string>Open Sound</string>
+    <string>Open</string>
    </property>
   </action>
-  <action name="actionOpen_Drums">
+  <action name="actionOpen_3">
    <property name="text">
-    <string>Open Drums</string>
-   </property>
-  </action>
-  <action name="actionOpen_Music">
-   <property name="text">
-    <string>Open Music</string>
+    <string>Open</string>
    </property>
   </action>
  </widget>

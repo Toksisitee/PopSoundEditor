@@ -7,12 +7,18 @@
 #include <QFile>
 #include <QTableWidget>
 
+enum BankType
+{
+    Sound,
+    Drums,
+    Music
+};
+
 template <typename T>
 struct Bank {
     uint32_t Entries;
     QVector<QPair<uint32_t, T>> Entry;
 };
-
 
 class CBank
 {

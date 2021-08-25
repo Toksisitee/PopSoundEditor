@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,11 +20,9 @@ public:
 private slots:
     void on_actionOpen_triggered();
 
-    void on_actionOpen_Sound_triggered();
+    void on_actionOpen_2_triggered();
 
-    void on_actionOpen_Drums_triggered();
-
-    void on_actionOpen_Music_triggered();
+    void on_actionOpen_3_triggered();
 
 private:
     Ui::MainWindow *ui;
