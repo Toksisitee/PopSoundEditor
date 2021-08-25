@@ -63,11 +63,3 @@ int32_t CMusic::GetEntries() const
 {
     return m_Bank.Entries;
 }
-
-void CMusic::Clear()
-{
-    delete[] m_pBuffer;
-    m_pBuffer = nullptr;
-    m_Bank.Entry.clear();
-    m_nBufferLength = 0;
-}

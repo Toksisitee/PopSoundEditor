@@ -74,7 +74,13 @@ public:
     virtual void    FillTable(QTableWidget* table) = 0;
     virtual int32_t GetEntries() const = 0;
 protected:
-    virtual void    Clear() = 0;
+    virtual void    Clear()
+    {
+        delete[] m_pBuffer;
+        m_pBuffer = nullptr;
+        m_Bank.Entry.clear();
+        m_nBufferLength = 0;
+    }
     char*           m_pBuffer;
     uint32_t        m_nBufferLength;
 };

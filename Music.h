@@ -27,7 +27,7 @@ public:
     void    FillTable(QTableWidget* table) override;
     int32_t GetEntries() const override;
 protected:
-    void    Clear() override;
+
 };
 
 #endif // MUSIC_H

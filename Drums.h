@@ -23,7 +23,7 @@ public:
     void    FillTable(QTableWidget* table) override;
     int32_t GetEntries() const override;
 protected:
-    void    Clear() override;
+
 };
 
 #endif // DRUMS_H

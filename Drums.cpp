@@ -63,11 +63,3 @@ int32_t CDrums::GetEntries() const
 {
     return m_Bank.Entries;
 }
-
-void CDrums::Clear()
-{
-    delete[] m_pBuffer;
-    m_pBuffer = nullptr;
-    m_Bank.Entry.clear();
-    m_nBufferLength = 0;
-}
