@@ -14,14 +14,16 @@ SOURCES += \
     Music.cpp \
     Sound.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    soundeditor.cpp
 
 HEADERS += \
     Common.h \
     Drums.h \
     Music.h \
     Sound.h \
-    mainwindow.h
+    mainwindow.h \
+    soundeditor.h
 
 FORMS += \
     mainwindow.ui
