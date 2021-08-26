@@ -4,6 +4,7 @@ CMusic::CMusic()
 {
     m_pBuffer = nullptr;
     m_nBufferLength = 0;
+    m_Audio = nullptr;
 }
 
 void CMusic::FillTable()
@@ -56,7 +57,9 @@ void CMusic::Export(uint32_t index)
 
 void CMusic::Play(uint32_t index)
 {
-
+    QErrorMessage msg;
+    msg.showMessage("Music tracks cannot be played within the editor!\nYou may only listen to exported tracks.");
+    msg.exec();
 }
 
 int32_t CMusic::GetEntries() const

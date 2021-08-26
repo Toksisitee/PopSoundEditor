@@ -16,6 +16,8 @@ public:
     CSound      m_Sound;
     CDrums      m_Drums;
     CMusic      m_Music;
+    BankType    m_Type; // Current bank type
+
     void        WriteSetting(QString key, QString val);
     void        SetFilePath(QString& path);
     QString     GetFilePath() const;
@@ -23,6 +25,7 @@ public:
 
 private:
     QString     m_strFilePath;
+    QString     m_strEditorPath;
     QSettings*  m_Settings;
 };
 

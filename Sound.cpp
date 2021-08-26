@@ -4,6 +4,7 @@ CSound::CSound()
 {
     m_pBuffer = nullptr;
     m_nBufferLength = 0;
+    m_Audio = nullptr;
 }
 
 void CSound::FillTable()
@@ -60,18 +61,66 @@ void CSound::FillTable()
 void CSound::Create(const QString &file)
 {
 
-
 }
 
 void CSound::Export(uint32_t index)
 {
 
-
 }
 
 void CSound::Play(uint32_t index)
 {
+//  auto sampleRate = m_TableWidget->item(index, 5)->text().toInt();
+//  auto bitsPerSample = m_TableWidget->item(index, 6)->text().toInt();
+//  auto numChannels = m_TableWidget->item(index, 7)->text().toInt();
 
+    auto entry = m_Bank.Entry[index].second;
+    auto offset = m_Bank.Entry[index].first;
+
+    QAudioFormat format;
+    format.setSampleRate(entry.SampleRate / 2);
+    format.setChannelCount(entry.NumChannels);
+    format.setSampleSize(entry.BitsPerSample);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::UnSignedInt);
+
+    QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
+    if (!info.isFormatSupported(format)) {
+        QErrorMessage msg;
+        msg.showMessage("Audio format not supported!");
+        msg.exec();
+        return;
+    }
+
+    QBuffer* qBuffer = new QBuffer;
+    char* buffer = new char[entry.DataSize];
+    memcpy(&buffer[0], &m_pBuffer[offset + entry.HeaderSize], entry.DataSize);
+    qBuffer->open(QIODevice::ReadWrite);
+    qBuffer->seek(0);
+    qBuffer->write(buffer, entry.DataSize);
+    qBuffer->seek(0);
+    delete[] buffer;
+
+    if (m_Audio) delete m_Audio;
+    m_Audio = new QAudioOutput(format);
+
+    QObject::connect(m_Audio, &QAudioOutput::stateChanged, [this, qBuffer](QAudio::State state)
+    {
+        switch (state)
+        {
+            case QAudio::IdleState:
+            case QAudio::StoppedState:
+                delete m_Audio;
+                delete qBuffer;
+                m_Audio = nullptr;
+                break;
+            default:
+                break;
+        }
+    });
+
+    m_Audio->start(qBuffer);
 }
 
 int32_t CSound::GetEntries() const

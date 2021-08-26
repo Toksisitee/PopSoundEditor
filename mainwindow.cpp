@@ -31,6 +31,7 @@ void MainWindow::on_actionOpen_triggered()
         if (Editor.m_Sound.Load(file)) {
             Editor.SetFilePath(file);
             Editor.m_Sound.FillTable();
+            Editor.m_Type = BankType::Sound;
         }
     }
 }
@@ -46,6 +47,7 @@ void MainWindow::on_actionOpen_2_triggered()
         if (Editor.m_Drums.Load(file)) {
             Editor.SetFilePath(file);
             Editor.m_Drums.FillTable();
+            Editor.m_Type = BankType::Drums;
         }
     }
 }
@@ -61,7 +63,32 @@ void MainWindow::on_actionOpen_3_triggered()
         if (Editor.m_Music.Load(file)) {
             Editor.SetFilePath(file);
             Editor.m_Music.FillTable();
+            Editor.m_Type = BankType::Music;
         }
+    }
+}
+
+
+void MainWindow::on_tableWidget_doubleClicked(const QModelIndex &index)
+{
+    QErrorMessage msg;
+
+    switch (Editor.m_Type)
+    {
+    case Sound:
+        Editor.m_Sound.Play(index.row());
+        break;
+    case Drums:
+        Editor.m_Drums.Play(index.row());
+        break;
+    case Music:
+        Editor.m_Music.Play(index.row());
+        break;
+    default:
+        msg.showMessage("Unknown SDT Bank type!");
+        msg.exec();
+        break;
+
     }
 }
 

@@ -24,6 +24,8 @@ private slots:
 
     void on_actionOpen_3_triggered();
 
+    void on_tableWidget_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 };
