@@ -61,8 +61,3 @@ void CMusic::Play(uint32_t index)
     msg.showMessage("Music tracks cannot be played within the editor!\nYou may only listen to exported tracks.");
     msg.exec();
 }
-
-int32_t CMusic::GetEntries() const
-{
-    return m_Bank.Entries;
-}

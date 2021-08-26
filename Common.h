@@ -77,7 +77,10 @@ public:
     virtual void    Export(uint32_t index) = 0;
     virtual void    Play(uint32_t index) = 0;
     virtual void    FillTable() = 0;
-    virtual int32_t GetEntries() const = 0;
+    virtual int32_t GetEntries()
+    {
+        return m_Bank.Entries;
+    }
     void            SetQTableWidgetPtr(QTableWidget* const table)
     {
         m_TableWidget = table;

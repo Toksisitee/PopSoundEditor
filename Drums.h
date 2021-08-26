@@ -21,7 +21,6 @@ public:
     void    Export(uint32_t index) override;
     void    Play(uint32_t index) override;
     void    FillTable() override;
-    int32_t GetEntries() const override;
 protected:
 
 };

@@ -122,8 +122,3 @@ void CSound::Play(uint32_t index)
 
     m_Audio->start(qBuffer);
 }
-
-int32_t CSound::GetEntries() const
-{
-    return m_Bank.Entries;
-}
