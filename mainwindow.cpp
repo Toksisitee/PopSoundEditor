@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setCentralWidget(ui->tableWidget);
+    Editor.SetQTableWidgetPtr(ui->tableWidget);
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +30,7 @@ void MainWindow::on_actionOpen_triggered()
         Editor.WriteSetting("LastOpenPath", file);
         if (Editor.m_Sound.Load(file)) {
             Editor.SetFilePath(file);
-            Editor.m_Sound.FillTable(ui->tableWidget);
+            Editor.m_Sound.FillTable();
         }
     }
 }
@@ -44,7 +45,7 @@ void MainWindow::on_actionOpen_2_triggered()
         Editor.WriteSetting("LastOpenPath", file);
         if (Editor.m_Drums.Load(file)) {
             Editor.SetFilePath(file);
-            Editor.m_Drums.FillTable(ui->tableWidget);
+            Editor.m_Drums.FillTable();
         }
     }
 }
@@ -59,7 +60,7 @@ void MainWindow::on_actionOpen_3_triggered()
         Editor.WriteSetting("LastOpenPath", file);
         if (Editor.m_Music.Load(file)) {
             Editor.SetFilePath(file);
-            Editor.m_Music.FillTable(ui->tableWidget);
+            Editor.m_Music.FillTable();
         }
     }
 }

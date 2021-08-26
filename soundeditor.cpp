@@ -30,3 +30,10 @@ QString CSoundEditor::GetFilePath() const
 {
     return m_strFilePath;
 }
+
+void CSoundEditor::SetQTableWidgetPtr(QTableWidget* const table)
+{
+    m_Sound.SetQTableWidgetPtr(table);
+    m_Drums.SetQTableWidgetPtr(table);
+    m_Music.SetQTableWidgetPtr(table);
+}

@@ -19,6 +19,7 @@ public:
     void        WriteSetting(QString key, QString val);
     void        SetFilePath(QString& path);
     QString     GetFilePath() const;
+    void        SetQTableWidgetPtr(QTableWidget* const table);
 
 private:
     QString     m_strFilePath;

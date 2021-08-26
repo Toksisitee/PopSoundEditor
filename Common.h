@@ -71,8 +71,12 @@ public:
     virtual void    Create(const QString& filename) = 0;
     virtual void    Export(uint32_t index) = 0;
     virtual void    Play(uint32_t index) = 0;
-    virtual void    FillTable(QTableWidget* table) = 0;
+    virtual void    FillTable() = 0;
     virtual int32_t GetEntries() const = 0;
+    void            SetQTableWidgetPtr(QTableWidget* const table)
+    {
+        m_TableWidget = table;
+    }
 protected:
     virtual void    Clear()
     {
@@ -83,6 +87,7 @@ protected:
     }
     char*           m_pBuffer;
     uint32_t        m_nBufferLength;
+    QTableWidget*   m_TableWidget;
 };
 
 // http://soundfile.sapp.org/doc/WaveFormat/

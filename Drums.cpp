@@ -6,39 +6,39 @@ CDrums::CDrums()
     m_nBufferLength = 0;
 }
 
-void CDrums::FillTable(QTableWidget* table)
+void CDrums::FillTable()
 {
     int32_t rows = this->GetEntries();
     int32_t columns = 6;
 
-    table->clear();
-    table->setRowCount(rows);
-    table->setColumnCount(columns);
+    m_TableWidget->clear();
+    m_TableWidget->setRowCount(rows);
+    m_TableWidget->setColumnCount(columns);
 
-    table->setHorizontalHeaderItem(0, new QTableWidgetItem("Index"));
-    table->setHorizontalHeaderItem(1, new QTableWidgetItem("Offset"));
-    table->setHorizontalHeaderItem(2, new QTableWidgetItem("HeaderSize"));
-    table->setHorizontalHeaderItem(3, new QTableWidgetItem("DataSize"));
-    table->setHorizontalHeaderItem(4, new QTableWidgetItem("Name"));
-    table->setHorizontalHeaderItem(5, new QTableWidgetItem("SampleRate"));
+    m_TableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Index"));
+    m_TableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("Offset"));
+    m_TableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem("HeaderSize"));
+    m_TableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem("DataSize"));
+    m_TableWidget->setHorizontalHeaderItem(4, new QTableWidgetItem("Name"));
+    m_TableWidget->setHorizontalHeaderItem(5, new QTableWidgetItem("SampleRate"));
 
-    table->setColumnWidth(0, 15); // Index
-    table->setColumnWidth(1, 50); // Offset
-    table->setColumnWidth(2, 65); // HeaderSize
-    table->setColumnWidth(3, 56); // DataSize
-    table->setColumnWidth(4, 100); // Name
-    table->setColumnWidth(5, 70); // SampleRate
+    m_TableWidget->setColumnWidth(0, 15); // Index
+    m_TableWidget->setColumnWidth(1, 50); // Offset
+    m_TableWidget->setColumnWidth(2, 65); // HeaderSize
+    m_TableWidget->setColumnWidth(3, 56); // DataSize
+    m_TableWidget->setColumnWidth(4, 100); // Name
+    m_TableWidget->setColumnWidth(5, 70); // SampleRate
 
     for (int i = 0; i < this->GetEntries(); i++)
     {
         auto entry = m_Bank.Entry[i].second;
-        table->setItem(i, 0, new QTableWidgetItem(QString::number(i)));
+        m_TableWidget->setItem(i, 0, new QTableWidgetItem(QString::number(i)));
         QString offset = QString::asprintf("%02X", m_Bank.Entry[i].first);
-        table->setItem(i, 1, new QTableWidgetItem(offset));
-        table->setItem(i, 2, new QTableWidgetItem(QString::number(entry.HeaderSize)));
-        table->setItem(i, 3, new QTableWidgetItem(QString::number(entry.DataSize)));
-        table->setItem(i, 4, new QTableWidgetItem(entry.Name));
-        table->setItem(i, 5, new QTableWidgetItem(QString::number(entry.SampleRate)));
+        m_TableWidget->setItem(i, 1, new QTableWidgetItem(offset));
+        m_TableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(entry.HeaderSize)));
+        m_TableWidget->setItem(i, 3, new QTableWidgetItem(QString::number(entry.DataSize)));
+        m_TableWidget->setItem(i, 4, new QTableWidgetItem(entry.Name));
+        m_TableWidget->setItem(i, 5, new QTableWidgetItem(QString::number(entry.SampleRate)));
     }
 }
 
