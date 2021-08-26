@@ -51,8 +51,16 @@ void CMusic::Create(const QString &file)
 
 void CMusic::Export(uint32_t index)
 {
+    auto entry = m_Bank.Entry[index].second;
+    auto offset = m_Bank.Entry[index].first;
 
-
+    QFile file(QDir::currentPath() + "\\music\\" + QString::number(index) + "_" + entry.Name + ".mp2");
+    if (file.open(QIODevice::WriteOnly))
+    {
+        offset += sizeof(TbMusicEntry);
+        file.write(reinterpret_cast<const char*>(&m_pBuffer[offset]), entry.DataSize);
+        file.close();
+    }
 }
 
 void CMusic::Play(uint32_t index)

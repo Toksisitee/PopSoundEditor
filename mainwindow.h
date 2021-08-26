@@ -26,6 +26,8 @@ private slots:
 
     void on_tableWidget_doubleClicked(const QModelIndex &index);
 
+    void on_actionExtract_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

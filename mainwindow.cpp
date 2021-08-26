@@ -20,7 +20,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 // Sound
 void MainWindow::on_actionOpen_triggered()
 {
@@ -88,7 +87,48 @@ void MainWindow::on_tableWidget_doubleClicked(const QModelIndex &index)
         msg.showMessage("Unknown SDT Bank type!");
         msg.exec();
         break;
+    }
+}
 
+
+void MainWindow::on_actionExtract_triggered()
+{
+    QErrorMessage msg;
+    bool errorBank = false;
+
+    switch (Editor.m_Type)
+    {
+    case Sound:
+        if (Editor.m_Sound.GetEntries() == 0)
+            errorBank = true;
+
+        for (int i = 0; i < Editor.m_Sound.GetEntries(); i++)
+            Editor.m_Sound.Export(i);
+        break;
+    case Drums:
+        if (Editor.m_Drums.GetEntries() == 0)
+            errorBank = true;
+
+        for (int i = 0; i < Editor.m_Drums.GetEntries(); i++)
+            Editor.m_Drums.Export(i);
+        break;
+    case Music:
+        if (Editor.m_Music.GetEntries() == 0)
+            errorBank = true;
+
+        for (int i = 0; i < Editor.m_Music.GetEntries(); i++)
+            Editor.m_Music.Export(i);
+        break;
+    default:
+        msg.showMessage("Unknown SDT Bank type!");
+        msg.exec();
+        break;
+    }
+
+    if (errorBank)
+    {
+        msg.showMessage("You have to first load a SDT bank!");
+        msg.exec();
     }
 }
 

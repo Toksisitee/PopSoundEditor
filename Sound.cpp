@@ -65,7 +65,32 @@ void CSound::Create(const QString &file)
 
 void CSound::Export(uint32_t index)
 {
+    auto entry = m_Bank.Entry[index].second;
+    auto offset = m_Bank.Entry[index].first;
+    WAVE wav;
 
+    QFile file(QDir::currentPath() + "\\sounds\\" + QString::number(index) + "_" + entry.Name + ".wav");
+    if (file.open(QIODevice::WriteOnly))
+    {
+        WAVE wav;
+        strncpy(wav.RIFF, "RIFF", 4);
+        strncpy(wav.WAVE, "WAVE", 4);
+        strncpy(wav.fmt, "fmt ", 4);
+        strncpy(wav.Subchunk2ID, "data", 4);
+        wav.ChunkSize = sizeof(WAVE) + entry.DataSize - 8;
+        wav.Subchunk1Size = 16;
+        wav.AudioFormat = 1;
+        wav.NumChannels = entry.NumChannels;
+        wav.SampleRate = entry.SampleRate / 2;
+        wav.ByteRate = (entry.SampleRate * entry.NumChannels * entry.BitsPerSample) / 8;
+        wav.BlockAlign = (entry.NumChannels * entry.BitsPerSample) / 8;
+        wav.BitsPerSample = entry.BitsPerSample;
+        wav.Subchunk2Size = entry.DataSize;
+
+        file.write(reinterpret_cast<const char*>(&wav), sizeof(WAVE));
+        file.write(reinterpret_cast<const char*>(&m_pBuffer[offset + entry.HeaderSize]), entry.DataSize);
+        file.close();
+    }
 }
 
 void CSound::Play(uint32_t index)

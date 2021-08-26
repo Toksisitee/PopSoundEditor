@@ -5,7 +5,9 @@ CSoundEditor::CSoundEditor()
 {
     m_Settings = new QSettings("editor.ini", QSettings::IniFormat);
     m_strEditorPath = qApp->applicationDirPath();
-    QDir().mkdir("output");
+    QDir().mkdir("sounds");
+    QDir().mkdir("drums");
+    QDir().mkdir("music");
 
     //QSettings registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Bullfrog Productions Ltd\\Populous: The Beginning", QSettings::NativeFormat);
     //path = registry.value("InstallPath", qApp->applicationDirPath()).toString();

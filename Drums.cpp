@@ -51,8 +51,33 @@ void CDrums::Create(const QString &file)
 
 void CDrums::Export(uint32_t index)
 {
+    auto entry = m_Bank.Entry[index].second;
+    auto offset = m_Bank.Entry[index].first;
+    const auto numChannels = 2;
+    WAVE wav;
 
+    QFile file(QDir::currentPath() + "\\drums\\" + QString::number(index) + "_" + entry.Name + ".wav");
+    if (file.open(QIODevice::WriteOnly))
+    {
+        WAVE wav;
+        strncpy(wav.RIFF, "RIFF", 4);
+        strncpy(wav.WAVE, "WAVE", 4);
+        strncpy(wav.fmt, "fmt ", 4);
+        strncpy(wav.Subchunk2ID, "data", 4);
+        wav.ChunkSize = sizeof(WAVE) + entry.DataSize - 8;
+        wav.Subchunk1Size = 16;
+        wav.AudioFormat = 1;
+        wav.NumChannels = numChannels;
+        wav.SampleRate = entry.SampleRate;
+        wav.ByteRate = (entry.SampleRate * numChannels * entry.BitsPerSample) / 8;
+        wav.BlockAlign = (numChannels * entry.BitsPerSample) / 8;
+        wav.BitsPerSample = entry.BitsPerSample;
+        wav.Subchunk2Size = entry.DataSize;
 
+        file.write(reinterpret_cast<const char*>(&wav), sizeof(WAVE));
+        file.write(reinterpret_cast<const char*>(&m_pBuffer[offset + entry.HeaderSize]), entry.DataSize);
+        file.close();
+    }
 }
 
 void CDrums::Play(uint32_t index)
