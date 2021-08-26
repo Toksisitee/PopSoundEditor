@@ -58,7 +58,7 @@ public:
                 for (uint32_t i = 0; i < m_Bank.Entries; i++)
                 {
                     auto offset = *(reinterpret_cast<uint32_t*>(pBuffer));
-                    m_Bank.Entry.push_back(std::make_pair(offset, *(reinterpret_cast<T*>(&m_pBuffer[offset]))));
+                    m_Bank.Entry.push_back(qMakePair(offset, *(reinterpret_cast<T*>(&m_pBuffer[offset]))));
                     pBuffer += sizeof(uint32_t);
                 }
                 return true;
