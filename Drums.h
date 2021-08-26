@@ -17,7 +17,7 @@ class CDrums : public CBank<TbDrumEntry>
 {
 public:
     CDrums();
-    void    Create(const QString& filename) override;
+    void    Create(const QString& fileName) override;
     void    Export(uint32_t index) override;
     void    Play(uint32_t index) override;
     void    FillTable() override;

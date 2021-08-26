@@ -28,6 +28,12 @@ private slots:
 
     void on_actionExtract_triggered();
 
+    void on_actionCreate_Bank_triggered();
+
+    void on_actionCreate_Bank_3_triggered();
+
+    void on_actionCreate_Bank_2_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

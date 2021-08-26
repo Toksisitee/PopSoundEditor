@@ -90,31 +90,33 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Open</string>
+     <string>File</string>
     </property>
     <widget class="QMenu" name="menuSound">
      <property name="title">
       <string>Sound</string>
      </property>
      <addaction name="actionOpen"/>
+     <addaction name="actionCreate_Bank"/>
     </widget>
     <widget class="QMenu" name="menuDrums">
      <property name="title">
       <string>Drums</string>
      </property>
      <addaction name="actionOpen_2"/>
+     <addaction name="actionCreate_Bank_2"/>
     </widget>
     <widget class="QMenu" name="menuMusic">
      <property name="title">
       <string>Music</string>
      </property>
      <addaction name="actionOpen_3"/>
+     <addaction name="actionCreate_Bank_3"/>
     </widget>
     <addaction name="menuSound"/>
     <addaction name="menuDrums"/>
     <addaction name="menuMusic"/>
     <addaction name="actionExtract"/>
-    <addaction name="actionCreate_Bank"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -137,6 +139,16 @@
   <action name="actionExtract">
    <property name="text">
     <string>Extract</string>
+   </property>
+  </action>
+  <action name="actionCreate_Bank_2">
+   <property name="text">
+    <string>Create Bank</string>
+   </property>
+  </action>
+  <action name="actionCreate_Bank_3">
+   <property name="text">
+    <string>Create Bank</string>
    </property>
   </action>
   <action name="actionCreate_Bank">

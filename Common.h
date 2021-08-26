@@ -11,12 +11,14 @@
 #include <QBuffer>
 #include <QErrorMessage>
 #include <QDir>
+#include <QMessageBox>
 
 enum BankType
 {
     Sound,
     Drums,
-    Music
+    Music,
+    Unknown
 };
 
 template <typename T>
@@ -73,7 +75,7 @@ public:
         return false;
     }
 
-    virtual void    Create(const QString& filename) = 0;
+    virtual void    Create(const QString& fileName) = 0;
     virtual void    Export(uint32_t index) = 0;
     virtual void    Play(uint32_t index) = 0;
     virtual void    FillTable() = 0;
@@ -116,6 +118,14 @@ struct WAVE
     uint16_t    BitsPerSample;  // Number of bits per sample
     char        Subchunk2ID[4]; // "data"  string
     uint32_t    Subchunk2Size;  // Sampled data length
+};
+
+struct Wav2Entry
+{
+    uint32_t    Index;
+    char        Name[16];
+    WAVE        Wav;
+    char*       Data;
 };
 
 #endif // COMMON_H

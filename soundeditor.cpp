@@ -3,6 +3,7 @@
 
 CSoundEditor::CSoundEditor()
 {
+    m_Type = BankType::Unknown;
     m_Settings = new QSettings("editor.ini", QSettings::IniFormat);
     m_strEditorPath = qApp->applicationDirPath();
     QDir().mkdir("sounds");

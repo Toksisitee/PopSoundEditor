@@ -43,10 +43,119 @@ void CDrums::FillTable()
     }
 }
 
-void CDrums::Create(const QString &file)
+void CDrums::Create(const QString &fileName)
 {
+    QVector<Wav2Entry> vec;
 
+    QDir directory(QDir::currentPath() + "\\drums\\");
+    QStringList files = directory.entryList(QStringList() << "*.wav" << "*.WAV", QDir::Files);
 
+    foreach(QString wavName, files)
+    {
+        bool isDigit = false;
+        int removePos = wavName.indexOf('_');
+        QStringRef tmp(&wavName, 0, removePos);
+        int index = tmp.toInt(&isDigit, 10);
+
+        if (isDigit)
+        {
+            Wav2Entry entry;
+            entry.Index = index;
+
+            QString fullName = wavName;
+            wavName.remove(0, removePos + 1);
+            wavName.chop(4);
+            strncpy(entry.Name, wavName.toLatin1().data(), sizeof(entry.Name));
+
+            QString filePath = QDir::currentPath() + "\\drums\\" + fullName;
+            QFile file(filePath);
+            if (file.open(QIODevice::ReadOnly))
+            {
+                char* pBuffer = new char[file.size()];
+                file.seek(0);
+                file.read(pBuffer, file.size());
+                file.close();
+
+                memcpy(&entry.Wav, &pBuffer[0], sizeof(WAVE));
+                entry.Data = new char[entry.Wav.Subchunk2Size];
+                memcpy(&entry.Data[0], &pBuffer[sizeof(WAVE)], entry.Wav.Subchunk2Size);
+                delete[] pBuffer;
+            }
+            else
+            {
+                QErrorMessage msg;
+                msg.showMessage(QString("Can not open WAV file!<br>%1").arg(filePath));
+                msg.exec();
+                return;
+            }
+
+            vec.push_back(entry);
+        }
+    }
+
+    if (vec.isEmpty())
+    {
+        QErrorMessage msg;
+        msg.showMessage("Could not find any WAV files inside the drums directory!");
+        msg.exec();
+        return;
+    }
+
+    qSort(vec.begin(), vec.end(), [](
+        const Wav2Entry& fsound,
+        const Wav2Entry& ssound)
+    {
+        return (fsound.Index < ssound.Index);
+    });
+
+    auto it = std::unique(vec.begin(), vec.end(), [](
+        const Wav2Entry& fsound,
+        const Wav2Entry& ssound)
+    {
+        return fsound.Index == ssound.Index;
+    });
+
+    vec.erase(it, vec.end());
+    auto numSounds = vec.size();
+
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+    {
+        auto data_offset = 4 + (numSounds * 4);
+        file.write(reinterpret_cast<const char*>(&numSounds), 4);
+
+        // This data is lost when extracting.
+        uint32_t HeaderSize = 40;
+        char szPad[11] = { 0 };
+
+        for (int32_t i = 0; i < vec.size(); i++)
+        {
+            file.write(reinterpret_cast<const char*>(&data_offset), 4);
+            data_offset += HeaderSize + vec[i].Wav.Subchunk2Size;
+        }
+
+        for (int32_t i = 0; i < vec.size(); i++)
+        {
+            file.write(reinterpret_cast<const char*>(&HeaderSize), 4);
+            file.write(reinterpret_cast<const char*>(&vec[i].Wav.Subchunk2Size), 4);
+            file.write(reinterpret_cast<const char*>(&vec[i].Name), 16);
+            file.write(reinterpret_cast<const char*>(&vec[i].Wav.SampleRate), 2);
+            file.write(reinterpret_cast<const char*>(&vec[i].Wav.BitsPerSample), 1);
+            file.write(reinterpret_cast<const char*>(&vec[i].Wav.NumChannels), 1);
+            file.write(reinterpret_cast<const char*>(&szPad), sizeof(szPad));
+            file.write(reinterpret_cast<const char*>(&vec[i].Wav.NumChannels), 1);
+            file.write(reinterpret_cast<const char*>(&vec[i].Data[0]), vec[i].Wav.Subchunk2Size);
+        }
+
+        foreach (auto ptr, vec) {
+            delete[] ptr.Data;
+        }
+
+        QMessageBox msgBox;
+        msgBox.setText(QString("Successfully created Drums SDT bank containing %1 sounds.").arg(numSounds));
+        msgBox.exec();
+        file.close();
+    }
 }
 
 void CDrums::Export(uint32_t index)
@@ -54,7 +163,6 @@ void CDrums::Export(uint32_t index)
     auto entry = m_Bank.Entry[index].second;
     auto offset = m_Bank.Entry[index].first;
     const auto numChannels = 2;
-    WAVE wav;
 
     QFile file(QDir::currentPath() + "\\drums\\" + QString::number(index) + "_" + entry.Name + ".wav");
     if (file.open(QIODevice::WriteOnly))

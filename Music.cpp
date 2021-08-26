@@ -43,10 +43,11 @@ void CMusic::FillTable()
     }
 }
 
-void CMusic::Create(const QString &file)
+void CMusic::Create(const QString &fileName)
 {
-
-
+    QErrorMessage msg;
+    msg.showMessage("Functionality not implemented yet!");
+    msg.exec();
 }
 
 void CMusic::Export(uint32_t index)

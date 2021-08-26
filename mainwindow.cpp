@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// Sound
+// Open Sound Bank
 void MainWindow::on_actionOpen_triggered()
 {
     QString file = QFileDialog::getOpenFileName(this, "Open Sound File", Editor.GetFilePath(), "Sound File (*.SDT)");
@@ -36,7 +36,7 @@ void MainWindow::on_actionOpen_triggered()
 }
 
 
-// Drums
+// Open Drums Bank
 void MainWindow::on_actionOpen_2_triggered()
 {
     QString file = QFileDialog::getOpenFileName(this, "Open Drums File", Editor.GetFilePath(), "Drums File (*.SDT)");
@@ -52,22 +52,22 @@ void MainWindow::on_actionOpen_2_triggered()
 }
 
 
-// Music
+// Open Music Bank
 void MainWindow::on_actionOpen_3_triggered()
 {
-    QString file = QFileDialog::getOpenFileName(this, "Open Music File", Editor.GetFilePath(), "Music File (*.SDT)");
-    if (!file.isEmpty())
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Music File", Editor.GetFilePath(), "Music File (*.SDT)");
+    if (!fileName.isEmpty())
     {
-        Editor.WriteSetting("LastOpenPath", file);
-        if (Editor.m_Music.Load(file)) {
-            Editor.SetFilePath(file);
+        Editor.WriteSetting("LastOpenPath", fileName);
+        if (Editor.m_Music.Load(fileName)) {
+            Editor.SetFilePath(fileName);
             Editor.m_Music.FillTable();
             Editor.m_Type = BankType::Music;
         }
     }
 }
 
-
+// Play Sound
 void MainWindow::on_tableWidget_doubleClicked(const QModelIndex &index)
 {
     QErrorMessage msg;
@@ -90,7 +90,7 @@ void MainWindow::on_tableWidget_doubleClicked(const QModelIndex &index)
     }
 }
 
-
+// Extract All Sounds
 void MainWindow::on_actionExtract_triggered()
 {
     QErrorMessage msg;
@@ -120,15 +120,44 @@ void MainWindow::on_actionExtract_triggered()
             Editor.m_Music.Export(i);
         break;
     default:
-        msg.showMessage("Unknown SDT Bank type!");
+        msg.showMessage("Please open a SDT bank first!");
         msg.exec();
         break;
     }
 
     if (errorBank)
     {
-        msg.showMessage("You have to first load a SDT bank!");
+        msg.showMessage("Bank does not contain any sound files!");
         msg.exec();
     }
 }
 
+// Create Sounds Bank
+void MainWindow::on_actionCreate_Bank_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save SDT Bank", Editor.GetFilePath(), "SDT Bank (*.SDT)");
+    if (!fileName.isEmpty())
+    {
+       Editor.m_Sound.Create(fileName);
+    }
+}
+
+// Create Drums Bank
+void MainWindow::on_actionCreate_Bank_2_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save SDT Bank", Editor.GetFilePath(), "SDT Bank (*.SDT)");
+    if (!fileName.isEmpty())
+    {
+       Editor.m_Drums.Create(fileName);
+    }
+}
+
+// Create Music Bank
+void MainWindow::on_actionCreate_Bank_3_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save SDT Bank", Editor.GetFilePath(), "SDT Bank (*.SDT)");
+    if (!fileName.isEmpty())
+    {
+       Editor.m_Music.Create(fileName);
+    }
+}
