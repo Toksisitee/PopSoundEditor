@@ -128,4 +128,12 @@ struct Wav2Entry
     char*       Data;
 };
 
+struct MP22Entry
+{
+    uint32_t    Index;
+    char        Name[8];
+    uint32_t    Size;
+    char*       Data;
+};
+
 #endif // COMMON_H
