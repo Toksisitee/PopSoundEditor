@@ -287,7 +287,8 @@ void CSound::Play(uint32_t index)
 void CSound::Verify()
 {
     QErrorMessage msg;
-    if (m_Bank.Entry[0].second.SampleRate != 11025)
+    if (m_Bank.Entry[0].second.SampleRate != 22050 ||
+        m_Bank.Entry[0].second.NumChannels != 2)
     {
         msg.showMessage("Verify failed!<br>Bank is potentially not a Sound Bank!");
         msg.exec();
