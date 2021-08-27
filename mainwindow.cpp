@@ -172,23 +172,36 @@ void MainWindow::on_actionCreate_Bank_3_triggered()
 
 void MainWindow::on_actionEditor_triggered()
 {
+    const QString caption = QMessageBox::tr(
+        "<h3>About %1</h3>"
+        "<p>This program uses Qt version %2.</p>"
+        ).arg(EDITOR_NAME).arg(QLatin1String(QT_VERSION_STR));
 
+    const QString text = QMessageBox::tr(
+        "<p>Copyright (C) Toksisitee 2021 <meypcm@gmail.com></p>"
+        "<p>Github: <a href=\"http://github.com/Toksisitee/\">Toksisitee</a></p>"
+        "<p><a href=\"https://github.com/Toksisitee/PopSoundEditor/\">Open Source Repository</a></p>"
+        "<p>Version: %1 %2 %3</p>"
+        ).arg(QStringLiteral(EDITOR_VERSION),
+              QStringLiteral(EDITOR_DATE),
+              QStringLiteral(EDITOR_BUILD));
+
+    QMessageBox* msgBox = new QMessageBox(this);
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+    msgBox->setWindowTitle(tr("About %1").arg(EDITOR_NAME));
+    msgBox->setText(caption);
+    msgBox->setInformativeText(text);
+
+    QPixmap pm(QCoreApplication::applicationDirPath() + "\\editor.png");
+    if (!pm.isNull())
+        msgBox->setIconPixmap(pm);
+
+    msgBox->show();
 }
 
 
 void MainWindow::on_actionQt_triggered()
 {
-#ifdef Q_OS_MAC
-    static QPointer<QMessageBox> oldMsgBox;
-
-    if (oldMsgBox) {
-        oldMsgBox->show();
-        oldMsgBox->raise();
-        oldMsgBox->activateWindow();
-        return;
-    }
-#endif
-
     QString translatedTextAboutQtCaption;
     translatedTextAboutQtCaption = QMessageBox::tr(
         "<h3>About Qt</h3>"
@@ -221,7 +234,7 @@ void MainWindow::on_actionQt_triggered()
         ).arg(QStringLiteral("2021"),
               QStringLiteral("qt.io/licensing"),
               QStringLiteral("qt.io"));
-    QMessageBox *msgBox = new QMessageBox(this);
+    QMessageBox* msgBox = new QMessageBox(this);
     msgBox->setAttribute(Qt::WA_DeleteOnClose);
     msgBox->setWindowTitle(tr("About Qt"));
     msgBox->setText(translatedTextAboutQtCaption);
@@ -231,18 +244,6 @@ void MainWindow::on_actionQt_triggered()
     if (!pm.isNull())
         msgBox->setIconPixmap(pm);
 
-    // should perhaps be a style hint
-#ifdef Q_OS_MAC
-    oldMsgBox = msgBox;
-#if 0
-    // ### doesn't work until close button is enabled in title bar
-    msgBox->d_func()->autoAddOkButton = false;
-#else
-    msgBox->d_func()->buttonBox->setCenterButtons(true);
-#endif
-    msgBox->show();
-#else
     msgBox->exec();
-#endif
 }
 
