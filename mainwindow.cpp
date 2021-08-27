@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "Editor.h"
 #include "soundeditor.h"
 
 CSoundEditor Editor;
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(ui->tableWidget);
     Editor.SetQTableWidgetPtr(ui->tableWidget);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    this->setWindowTitle(QString("v%1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH));
 }
 
 MainWindow::~MainWindow()

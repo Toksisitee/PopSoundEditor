@@ -20,6 +20,7 @@ SOURCES += \
 HEADERS += \
     Common.h \
     Drums.h \
+    Editor.h \
     Music.h \
     Sound.h \
     mainwindow.h \
