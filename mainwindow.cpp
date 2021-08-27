@@ -34,6 +34,7 @@ void MainWindow::on_actionOpen_triggered()
             Editor.SetFilePath(file);
             Editor.m_Sound.FillTable();
             Editor.m_Type = BankType::Sound;
+            this->setWindowTitle(QString("%1").arg(file));
         }
     }
 }
@@ -50,6 +51,7 @@ void MainWindow::on_actionOpen_2_triggered()
             Editor.SetFilePath(file);
             Editor.m_Drums.FillTable();
             Editor.m_Type = BankType::Drums;
+            this->setWindowTitle(QString("%1").arg(file));
         }
     }
 }
@@ -66,6 +68,7 @@ void MainWindow::on_actionOpen_3_triggered()
             Editor.SetFilePath(fileName);
             Editor.m_Music.FillTable();
             Editor.m_Type = BankType::Music;
+            this->setWindowTitle(QString("%1").arg(file));
         }
     }
 }
