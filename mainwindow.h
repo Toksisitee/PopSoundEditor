@@ -34,6 +34,10 @@ private slots:
 
     void on_actionCreate_Bank_2_triggered();
 
+    void on_actionEditor_triggered();
+
+    void on_actionQt_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

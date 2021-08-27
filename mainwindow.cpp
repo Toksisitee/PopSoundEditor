@@ -167,3 +167,82 @@ void MainWindow::on_actionCreate_Bank_3_triggered()
        Editor.m_Music.Create(fileName);
     }
 }
+
+
+
+void MainWindow::on_actionEditor_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionQt_triggered()
+{
+#ifdef Q_OS_MAC
+    static QPointer<QMessageBox> oldMsgBox;
+
+    if (oldMsgBox) {
+        oldMsgBox->show();
+        oldMsgBox->raise();
+        oldMsgBox->activateWindow();
+        return;
+    }
+#endif
+
+    QString translatedTextAboutQtCaption;
+    translatedTextAboutQtCaption = QMessageBox::tr(
+        "<h3>About Qt</h3>"
+        "<p>This program uses Qt version %1.</p>"
+        ).arg(QLatin1String(QT_VERSION_STR));
+    //: Leave this text untranslated or include a verbatim copy of it below
+    //: and note that it is the authoritative version in case of doubt.
+    const QString translatedTextAboutQtText = QMessageBox::tr(
+        "<p>Qt is a C++ toolkit for cross-platform application "
+        "development.</p>"
+        "<p>Qt provides single-source portability across all major desktop "
+        "operating systems. It is also available for embedded Linux and other "
+        "embedded and mobile operating systems.</p>"
+        "<p>Qt is available under multiple licensing options designed "
+        "to accommodate the needs of our various users.</p>"
+        "<p>Qt licensed under our commercial license agreement is appropriate "
+        "for development of proprietary/commercial software where you do not "
+        "want to share any source code with third parties or otherwise cannot "
+        "comply with the terms of GNU (L)GPL.</p>"
+        "<p>Qt licensed under GNU (L)GPL is appropriate for the "
+        "development of Qt&nbsp;applications provided you can comply with the terms "
+        "and conditions of the respective licenses.</p>"
+        "<p>Please see <a href=\"http://%2/\">%2</a> "
+        "for an overview of Qt licensing.</p>"
+        "<p>Copyright (C) %1 The Qt Company Ltd and other "
+        "contributors.</p>"
+        "<p>Qt and the Qt logo are trademarks of The Qt Company Ltd.</p>"
+        "<p>Qt is The Qt Company Ltd product developed as an open source "
+        "project. See <a href=\"http://%3/\">%3</a> for more information.</p>"
+        ).arg(QStringLiteral("2021"),
+              QStringLiteral("qt.io/licensing"),
+              QStringLiteral("qt.io"));
+    QMessageBox *msgBox = new QMessageBox(this);
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+    msgBox->setWindowTitle(tr("About Qt"));
+    msgBox->setText(translatedTextAboutQtCaption);
+    msgBox->setInformativeText(translatedTextAboutQtText);
+
+    QPixmap pm(QLatin1String(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
+    if (!pm.isNull())
+        msgBox->setIconPixmap(pm);
+
+    // should perhaps be a style hint
+#ifdef Q_OS_MAC
+    oldMsgBox = msgBox;
+#if 0
+    // ### doesn't work until close button is enabled in title bar
+    msgBox->d_func()->autoAddOkButton = false;
+#else
+    msgBox->d_func()->buttonBox->setCenterButtons(true);
+#endif
+    msgBox->show();
+#else
+    msgBox->exec();
+#endif
+}
+

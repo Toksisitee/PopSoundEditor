@@ -118,7 +118,16 @@
     <addaction name="menuMusic"/>
     <addaction name="actionExtract"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionEditor"/>
+    <addaction name="actionQt"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
@@ -154,6 +163,16 @@
   <action name="actionCreate_Bank">
    <property name="text">
     <string>Create Bank</string>
+   </property>
+  </action>
+  <action name="actionEditor">
+   <property name="text">
+    <string>Editor</string>
+   </property>
+  </action>
+  <action name="actionQt">
+   <property name="text">
+    <string>Qt</string>
    </property>
   </action>
  </widget>
