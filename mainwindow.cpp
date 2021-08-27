@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(ui->tableWidget);
     Editor.SetQTableWidgetPtr(ui->tableWidget);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    this->setWindowTitle(QString("v%1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH));
+    this->setWindowTitle(QString("v%1.%2.%3 %4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH).arg(EDITOR_BUILD));
 }
 
 MainWindow::~MainWindow()
@@ -34,7 +34,7 @@ void MainWindow::on_actionOpen_triggered()
             Editor.SetFilePath(fileName);
             Editor.m_Sound.FillTable();
             Editor.m_Type = BankType::Sound;
-            this->setWindowTitle(QString("%1").arg(fileName));
+            this->setWindowTitle(QString("%1 - %2").arg(fileName).arg(EDITOR_BUILD));
         }
     }
 }
@@ -51,7 +51,7 @@ void MainWindow::on_actionOpen_2_triggered()
             Editor.SetFilePath(fileName);
             Editor.m_Drums.FillTable();
             Editor.m_Type = BankType::Drums;
-            this->setWindowTitle(QString("%1").arg(fileName));
+            this->setWindowTitle(QString("%1 - %2").arg(fileName).arg(EDITOR_BUILD));
         }
     }
 }
@@ -68,7 +68,7 @@ void MainWindow::on_actionOpen_3_triggered()
             Editor.SetFilePath(fileName);
             Editor.m_Music.FillTable();
             Editor.m_Type = BankType::Music;
-            this->setWindowTitle(QString("%1").arg(fileName));
+            this->setWindowTitle(QString("%1 - %2").arg(fileName).arg(EDITOR_BUILD));
         }
     }
 }
