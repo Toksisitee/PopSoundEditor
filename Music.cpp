@@ -187,3 +187,25 @@ void CMusic::Play(uint32_t index)
     msg.showMessage("Music tracks cannot be played within the editor!\nYou may only listen to exported tracks.");
     msg.exec();
 }
+
+void CMusic::Verify()
+{
+    QErrorMessage msg;
+    bool errorMsg = false;
+
+    if (m_Bank.Entry[0].second.SampleRate != 22050) {
+        errorMsg = true;
+    }
+    else
+    {
+        auto c = m_pBuffer[m_Bank.Entry[0].first + 8 + sizeof(m_Bank.Entry[0].second.Name) + 1];//qstrlen(m_Bank.Entry[0].second.Name)];
+        if (c == '\0') {
+            errorMsg = true;
+        }
+    }
+
+    if (errorMsg) {
+        msg.showMessage("Verify failed!<br>Bank is potentially not a Music Bank!");
+        msg.exec();
+    }
+}

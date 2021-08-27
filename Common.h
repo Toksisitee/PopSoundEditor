@@ -68,6 +68,9 @@ public:
                     m_Bank.Entry.push_back(qMakePair(offset, *(reinterpret_cast<T*>(&m_pBuffer[offset]))));
                     pBuffer += sizeof(uint32_t);
                 }
+
+                Verify();
+
                 return true;
             }
             return false;
@@ -88,6 +91,7 @@ public:
         m_TableWidget = table;
     }
 protected:
+    virtual void    Verify() = 0;
     virtual void    Clear()
     {
         delete[] m_pBuffer;

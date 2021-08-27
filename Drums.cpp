@@ -238,3 +238,25 @@ void CDrums::Play(uint32_t index)
 
     m_Audio->start(qBuffer);
 }
+
+void CDrums::Verify()
+{
+    QErrorMessage msg;
+    bool errorMsg = false;
+
+    if (m_Bank.Entry[0].second.SampleRate != 22050) {
+        errorMsg = true;
+    }
+    else
+    {
+        auto c = m_pBuffer[m_Bank.Entry[0].first + 8 + 14];
+        if (c != '\0') {
+            errorMsg = true;
+        }
+    }
+
+    if (errorMsg) {
+        msg.showMessage("Verify failed!<br>Bank is potentially not a Music Bank!");
+        msg.exec();
+    }
+}

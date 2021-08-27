@@ -22,7 +22,7 @@ public:
     void    Play(uint32_t index) override;
     void    FillTable() override;
 protected:
-
+    void    Verify() override;
 };
 
 #endif // DRUMS_H

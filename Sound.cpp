@@ -283,3 +283,13 @@ void CSound::Play(uint32_t index)
 
     m_Audio->start(qBuffer);
 }
+
+void CSound::Verify()
+{
+    QErrorMessage msg;
+    if (m_Bank.Entry[0].second.SampleRate != 11025)
+    {
+        msg.showMessage("Verify failed!<br>Bank is potentially not a Sound Bank!");
+        msg.exec();
+    }
+}

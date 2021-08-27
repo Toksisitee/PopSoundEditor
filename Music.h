@@ -26,7 +26,7 @@ public:
     void    Play(uint32_t index) override;
     void    FillTable() override;
 protected:
-
+    void    Verify() override;
 };
 
 #endif // MUSIC_H
