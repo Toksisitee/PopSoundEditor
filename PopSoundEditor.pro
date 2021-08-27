@@ -37,5 +37,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RC_ICONS = icon.ico
 
 DISTFILES += \
+    LICENSE \
+    LICENSE-QT \
     PopSoundEditor.PNG \
     icon.png
