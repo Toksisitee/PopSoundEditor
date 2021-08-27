@@ -26,15 +26,15 @@ MainWindow::~MainWindow()
 // Open Sound Bank
 void MainWindow::on_actionOpen_triggered()
 {
-    QString file = QFileDialog::getOpenFileName(this, "Open Sound File", Editor.GetFilePath(), "Sound File (*.SDT)");
-    if (!file.isEmpty())
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Sound File", Editor.GetFilePath(), "Sound File (*.SDT)");
+    if (!fileName.isEmpty())
     {
-        Editor.WriteSetting("LastOpenPath", file);
-        if (Editor.m_Sound.Load(file)) {
-            Editor.SetFilePath(file);
+        Editor.WriteSetting("LastOpenPath", fileName);
+        if (Editor.m_Sound.Load(fileName)) {
+            Editor.SetFilePath(fileName);
             Editor.m_Sound.FillTable();
             Editor.m_Type = BankType::Sound;
-            this->setWindowTitle(QString("%1").arg(file));
+            this->setWindowTitle(QString("%1").arg(fileName));
         }
     }
 }
@@ -43,15 +43,15 @@ void MainWindow::on_actionOpen_triggered()
 // Open Drums Bank
 void MainWindow::on_actionOpen_2_triggered()
 {
-    QString file = QFileDialog::getOpenFileName(this, "Open Drums File", Editor.GetFilePath(), "Drums File (*.SDT)");
-    if (!file.isEmpty())
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Drums File", Editor.GetFilePath(), "Drums File (*.SDT)");
+    if (!fileName.isEmpty())
     {
-        Editor.WriteSetting("LastOpenPath", file);
-        if (Editor.m_Drums.Load(file)) {
-            Editor.SetFilePath(file);
+        Editor.WriteSetting("LastOpenPath", fileName);
+        if (Editor.m_Drums.Load(fileName)) {
+            Editor.SetFilePath(fileName);
             Editor.m_Drums.FillTable();
             Editor.m_Type = BankType::Drums;
-            this->setWindowTitle(QString("%1").arg(file));
+            this->setWindowTitle(QString("%1").arg(fileName));
         }
     }
 }
@@ -68,7 +68,7 @@ void MainWindow::on_actionOpen_3_triggered()
             Editor.SetFilePath(fileName);
             Editor.m_Music.FillTable();
             Editor.m_Type = BankType::Music;
-            this->setWindowTitle(QString("%1").arg(file));
+            this->setWindowTitle(QString("%1").arg(fileName));
         }
     }
 }
