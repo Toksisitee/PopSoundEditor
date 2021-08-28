@@ -37,7 +37,7 @@ This program is distributed under the GNU GPLv3 license. See the LICENSE file fo
 
 ### Building
   - [Qt 5.12.11](https://www.qt.io/download)
-  - MinGW-w64 GCC
+  - MinGW 32 bit
 
 ### Preview
 <p align="center">
