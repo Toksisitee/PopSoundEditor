@@ -18,6 +18,7 @@ public:
     CMusic      m_Music;
     BankType    m_Type; // Current bank type
 
+    void        Initialize();
     void        WriteSetting(QString key, QString val);
     void        SetFilePath(QString& path);
     QString     GetFilePath() const;

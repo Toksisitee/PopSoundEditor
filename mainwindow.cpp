@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setCentralWidget(ui->tableWidget);
+    Editor.Initialize();
     Editor.SetQTableWidgetPtr(ui->tableWidget);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->setWindowTitle(QString("v%1.%2.%3 %4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH).arg(EDITOR_BUILD));
