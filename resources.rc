@@ -1,6 +1,8 @@
 #include <windows.h>
 #include "Version.h"
 
+IDI_ICON1   ICON    "icon.ico"
+
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION VERSION_RC
 PRODUCTVERSION VERSION_RC
