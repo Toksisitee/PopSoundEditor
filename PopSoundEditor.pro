@@ -23,6 +23,7 @@ HEADERS += \
     Editor.h \
     Music.h \
     Sound.h \
+    Version.h \
     mainwindow.h \
     soundeditor.h
 
@@ -35,9 +36,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RC_ICONS = icon.ico
+win32:RC_FILE = resources.rc
 
 DISTFILES += \
     LICENSE \
     LICENSE-QT \
     PopSoundEditor.PNG \
-    icon.png
+    icon.png \
+    resources.rc
