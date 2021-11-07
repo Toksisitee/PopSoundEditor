@@ -8,7 +8,6 @@ struct TbSoundEntry
     uint32_t    HeaderSize;
     uint32_t    DataSize;
     char        Name[16];
-    // note that for music entries SampleRate (44.100) - 15000 seems to be ok (at least in demo)
     uint16_t    SampleRate; // 22050, normal 44100, but it's SampleRate / 2
     uint8_t     BitsPerSample; // 16
     uint8_t     NumChannels;
