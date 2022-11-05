@@ -1,7 +1,7 @@
 <img align="left" width="100" height="100" src="https://github.com/Toksisitee/PopSoundEditor/blob/master/icon.png">  
 
 # PopSoundEditor
-Open source Sound Editor tool written in C++ for the game **Populous: The Beginning**.
+Open source Sound Editor tool written in C++ for Bullfrog's **Populous: The Beginning** game.
 
 ### Features
 - **Open SDT banks**
